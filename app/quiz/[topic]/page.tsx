@@ -114,15 +114,15 @@ export default function QuizPage({ params }: { params: { topic: string } }) {
     const isFailingScore = percentage < 60
 
     return (
-      <div className="container mx-auto py-10 px-4 max-w-3xl">
+      <div className="container mx-auto py-6 px-4 max-w-3xl">
         {isPerfectScore && <ConfettiCelebration />}
         {isFailingScore && <FailAnimation />}
 
-        <div className="mb-6">
+        <div className="mb-5">
           <h1 className="text-2xl font-bold">{topicTitle} Quiz Results</h1>
           <div className="flex items-center text-sm text-muted-foreground">
             <Link href="/" className="flex items-center hover:text-foreground">
-              <Home className="mr-1 h-4 w-4" />
+              <Home className="mr-1 h-3.5 w-3.5" />
               Home
             </Link>
             <span className="mx-2">/</span>
@@ -132,71 +132,71 @@ export default function QuizPage({ params }: { params: { topic: string } }) {
           </div>
         </div>
 
-        <Card className="mb-8 relative overflow-hidden">
-          <CardHeader>
-            <CardTitle className="text-center">Quiz Results</CardTitle>
+        <Card className="mb-6 relative overflow-hidden">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-center text-xl">Quiz Results</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="text-center mb-6">
+            <div className="text-center mb-4">
               {isPerfectScore ? (
                 <div className="flex flex-col items-center">
-                  <Award className="h-16 w-16 text-yellow-500 mb-2 animate-success-rotate" />
-                  <p className="text-4xl font-bold mb-2 animate-score-pulse text-violet-500">
+                  <Award className="h-14 w-14 text-yellow-500 mb-2 animate-success-rotate" />
+                  <p className="text-3xl font-bold mb-1 animate-score-pulse text-indigo-500">
                     {score} / {questions.length}
                   </p>
-                  <p className="text-xl text-violet-600">Perfect Score! Congratulations!</p>
+                  <p className="text-lg text-indigo-600">Perfect Score! Congratulations!</p>
                 </div>
               ) : isFailingScore ? (
                 <div className="flex flex-col items-center">
-                  <Frown className="h-16 w-16 text-red-500 mb-2 animate-pulse" />
-                  <p className="text-4xl font-bold mb-2 text-red-500">
+                  <Frown className="h-14 w-14 text-red-500 mb-2 animate-pulse" />
+                  <p className="text-3xl font-bold mb-1 text-red-500">
                     {score} / {questions.length}
                   </p>
-                  <p className="text-xl text-red-600">Better luck next time!</p>
+                  <p className="text-lg text-red-600">Better luck next time!</p>
                 </div>
               ) : (
                 <div className="flex flex-col items-center">
-                  <p className="text-4xl font-bold mb-2">
+                  <p className="text-3xl font-bold mb-1">
                     {score} / {questions.length}
                   </p>
-                  <p className="text-xl text-muted-foreground">Your score: {percentage}%</p>
+                  <p className="text-lg text-muted-foreground">Your score: {percentage}%</p>
                 </div>
               )}
               <Progress
                 value={percentage}
-                className={`h-2 mt-4 ${isPerfectScore ? "bg-violet-200" : isFailingScore ? "bg-red-200" : ""}`}
+                className={`h-2 mt-3 ${isPerfectScore ? "bg-indigo-200" : isFailingScore ? "bg-red-200" : ""}`}
               />
             </div>
           </CardContent>
-          <CardFooter className="flex justify-between">
-            <Button variant="outline" onClick={() => router.push("/")}>
+          <CardFooter className="flex justify-between pt-0">
+            <Button variant="outline" onClick={() => router.push("/")} size="sm">
               Back to Topics
             </Button>
-            <Button onClick={handleRestart}>Restart Quiz</Button>
+            <Button onClick={handleRestart} size="sm">
+              Restart Quiz
+            </Button>
           </CardFooter>
 
           {isPerfectScore && (
-            <div className="absolute -top-10 -right-10 h-40 w-40 bg-violet-500 rotate-45 opacity-20"></div>
+            <div className="absolute -top-10 -right-10 h-40 w-40 bg-indigo-500 rotate-45 opacity-20"></div>
           )}
         </Card>
 
-        <h2 className="text-2xl font-bold mb-4">Question Review</h2>
+        <h2 className="text-xl font-bold mb-3">Question Review</h2>
         {questions.map((question, index) => (
           <Card
             key={index}
-            className={`mb-4 transition-all duration-300 ${
-              selectedAnswers[index] === question.correctAnswer
-                ? "border-green-500 hover:shadow-md hover:shadow-green-200"
-                : "border-red-500 hover:shadow-md hover:shadow-red-200"
+            className={`mb-4 transition-colors ${
+              selectedAnswers[index] === question.correctAnswer ? "border-green-500" : "border-red-500"
             }`}
           >
-            <CardHeader>
-              <CardTitle className="text-lg flex items-start gap-2">
-                <span className="mt-0.5">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-base flex items-start gap-2">
+                <span className="mt-0.5 flex-shrink-0">
                   {selectedAnswers[index] === question.correctAnswer ? (
-                    <CheckCircle2 className="h-5 w-5 text-green-500" />
+                    <CheckCircle2 className="h-4 w-4 text-green-500" />
                   ) : (
-                    <span className="inline-flex items-center justify-center h-5 w-5 rounded-full bg-red-500 text-white text-xs">
+                    <span className="inline-flex items-center justify-center h-4 w-4 rounded-full bg-red-500 text-white text-xs">
                       ✕
                     </span>
                   )}
@@ -204,7 +204,7 @@ export default function QuizPage({ params }: { params: { topic: string } }) {
                 <span>{question.question}</span>
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="text-sm">
               <p className="mb-2">
                 <span className="font-semibold">Your answer:</span>{" "}
                 {selectedAnswers[index] === ""
@@ -224,12 +224,12 @@ export default function QuizPage({ params }: { params: { topic: string } }) {
   }
 
   return (
-    <div className="container mx-auto py-10 px-4 max-w-3xl">
-      <div className="mb-6">
+    <div className="container mx-auto py-6 px-4 max-w-3xl">
+      <div className="mb-5">
         <h1 className="text-2xl font-bold">{topicTitle} Quiz</h1>
         <div className="flex items-center text-sm text-muted-foreground">
           <Link href="/" className="flex items-center hover:text-foreground">
-            <Home className="mr-1 h-4 w-4" />
+            <Home className="mr-1 h-3.5 w-3.5" />
             Home
           </Link>
           <span className="mx-2">/</span>
@@ -237,7 +237,7 @@ export default function QuizPage({ params }: { params: { topic: string } }) {
         </div>
       </div>
 
-      <div className="mb-8">
+      <div className="mb-6">
         <div className="flex justify-between items-center mb-2">
           <p className="text-sm text-muted-foreground">
             Question {currentQuestionIndex + 1} of {questions.length}
@@ -249,20 +249,24 @@ export default function QuizPage({ params }: { params: { topic: string } }) {
 
       <Card>
         <CardHeader className="relative pb-2">
-          <div className="absolute right-4 top-4 flex items-center gap-1 text-muted-foreground">
-            <Clock className="h-4 w-4" />
-            <span className={`font-mono ${timeRemaining <= 10 ? "text-red-500 font-bold animate-pulse" : ""}`}>
-              {timeRemaining}s
-            </span>
+          <div className="flex items-center justify-between mb-4">
+            <CardTitle className="text-base pr-16">{currentQuestion.question}</CardTitle>
+            <div className="flex items-center gap-1 text-muted-foreground absolute top-4 right-4">
+              <Clock className="h-3.5 w-3.5" />
+              <span
+                className={`font-mono text-sm ${timeRemaining <= 10 ? "text-red-500 font-bold animate-pulse" : ""}`}
+              >
+                {timeRemaining}s
+              </span>
+            </div>
           </div>
-          <CardTitle>{currentQuestion.question}</CardTitle>
         </CardHeader>
 
         {/* Question timer progress bar */}
         <div className="px-6">
           <Progress
             value={(timeRemaining / 60) * 100}
-            className={`h-1.5 ${timeRemaining <= 10 ? "bg-red-200" : "bg-violet-200"}`}
+            className={`h-1.5 ${timeRemaining <= 10 ? "bg-red-200" : "bg-indigo-200"}`}
           />
           <p className="text-xs text-center mt-1 text-muted-foreground">Time remaining for this question</p>
         </div>
@@ -280,7 +284,7 @@ export default function QuizPage({ params }: { params: { topic: string } }) {
                 onClick={() => handleAnswerSelect(option.value)}
               >
                 <RadioGroupItem value={option.value} id={option.value} />
-                <Label htmlFor={option.value} className="flex-grow cursor-pointer">
+                <Label htmlFor={option.value} className="flex-grow cursor-pointer text-sm">
                   {option.label}
                 </Label>
               </div>
@@ -288,7 +292,7 @@ export default function QuizPage({ params }: { params: { topic: string } }) {
           </RadioGroup>
         </CardContent>
         <CardFooter>
-          <Button onClick={handleNext} disabled={!selectedAnswers[currentQuestionIndex]} className="w-full">
+          <Button onClick={handleNext} disabled={!selectedAnswers[currentQuestionIndex]} className="w-full text-sm">
             {currentQuestionIndex < questions.length - 1 ? (
               <>
                 Next Question <ChevronRight className="ml-2 h-4 w-4" />
